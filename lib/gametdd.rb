@@ -15,7 +15,7 @@ class Gametdd
         @turn = @player
     end
 
-    def begin
+    def start
         
         puts "Welcome to Tic Tac Toe"
 
@@ -23,12 +23,7 @@ class Gametdd
 
         print "(y/n): "        
 
-        check = gets.chomp
-        while !input(check)
-            check = gets.chomp
-        end
-
-        if check == "y" then @turn = @player
+        if getInput then @turn = @player
         else @turn = @ai end    
 
         @rules.board.boardPrint
@@ -51,15 +46,31 @@ class Gametdd
             switchPlayers
 
         end
+
+        draw
+    end
+
+    def draw
+        puts "Game is a Draw!"
+        @rules.board.boardPrint
+        reset
+    end
         
-    end 
+    def getInput
+        check = gets.chomp
+        while !input(check)
+            check = gets.chomp
+        end
+
+        return check
+    end
 
     def input(check)
         
         if(check == "y" || check == "n")
             return true
         else
-            print "Invalid move, Try Again: "
+            print "Invalid input, Try Again: "
             return false
         end      
     end
@@ -75,7 +86,21 @@ class Gametdd
             puts "CPU Won."
         end
         
+        reset        
+
         exit
     end
-        
+    
+    def reset
+        print "Would you like to play again? (y/n): "
+        if getInput then 
+            @rules = Rulestdd.new(Boardtdd.new)
+            @ai = Aitdd.new(@rules)
+            start
+        else 
+            puts "GoodBye!"
+            exit 
+        end
+
+    end
 end

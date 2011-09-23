@@ -9,31 +9,21 @@ describe Gametdd do
     end
 
     it "should return true if input is y" do
-        @i_in = StringIO.new "y\n"
-        $stdin = @i_in
-    
-        begin
-        @g.inputY.should == "y"
-    
-        ensure
-        $stdin.close
-        $stdin = STDIN
-        end
-
+        check = "y"
+        @g.input(check).should == true
     end
 
     it "should switch players" do
+        @g.turn = @g.ai
+
+        @g.switchPlayers       
+
+        @g.turn.should == @g.player
+        
         @g.turn = @g.player
         
         @g.switchPlayers
             
         @g.turn.should == @g.ai
-        
-        @g.turn = @g.ai
-        
-        @g.switchPlayers
-            
-        @g.turn.should == @g.player
     end
-    
 end

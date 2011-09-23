@@ -14,7 +14,7 @@ class Playertdd
     end
     
     def getMove
-        puts "Enter your move human: "
+        print "Enter your move human: "
         move = $stdin.gets.chomp.to_i
         return move
     end
