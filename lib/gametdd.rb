@@ -16,84 +16,68 @@ class Gametdd
     end
 
     def start
-        
         puts "Welcome to Tic Tac Toe"
 
-        puts "Would you like to go first?"  
-
-        print "(y/n): "        
-
-        if getInput then @turn = @player
-        else @turn = @ai end    
+        if askyesno("to go first") == "n"
+            @turn = @ai
+        end
 
         @rules.board.boardPrint
 
         while !@rules.isFull?
-        
-            @turn.announce        
+
+            @turn.announce
 
             while !@rules.isValidMove?(move = @turn.getMove)
             end
-        
+
             @rules.board.placeMove(move, @turn.marker)
 
             @rules.board.boardPrint
-            
+
             if(@turn.marker == @rules.whoWon)
                 win
+                reset
             end
-
-            switchPlayers
-
+            
+            switchPlayer            
         end
 
         draw
-    end
-
-    def draw
-        puts "Game is a Draw!"
-        @rules.board.boardPrint
         reset
+
     end
+
+    def askyesno(question)
         
-    def getInput
-        check = gets.chomp
-        while !input(check)
-            check = gets.chomp
+        while(1)
+            print "Would you like you #{question}? (y/n) : "
+
+            answer = $stdin.gets.chomp
+
+            if answer == "y"
+                return "y"
+            elsif answer == "n"
+                return "n"
+            end
         end
-
-        return check
     end
 
-    def input(check)
-        
-        if(check == "y" || check == "n")
-            return true
-        else
-            print "Invalid input, Try Again: "
-            return false
-        end      
-    end
-
-    def switchPlayers
+    def switchPlayer
         @turn = @turn == @player ? @ai : @player
     end
 
     def win
         if(@turn == @player)
-            puts "Contratulations Human, You Won."
+            puts "Congratulations Human, You Won."
         else
-            puts "CPU Won."
-        end
-        
-        reset        
-
-        exit
+            puts "CPU Won, You Lose."
+        end       
     end
-    
+
     def reset
-        print "Would you like to play again? (y/n): "
-        if getInput then 
+
+        if askyesno("play again") == "y" then 
             @rules = Rulestdd.new(Boardtdd.new)
             @ai = Aitdd.new(@rules)
             start
@@ -101,6 +85,11 @@ class Gametdd
             puts "GoodBye!"
             exit 
         end
-
     end
-end
+
+    def draw
+        puts "Game is a Draw!"
+        @rules.board.boardPrint
+    end
+
+end 

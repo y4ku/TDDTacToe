@@ -27,4 +27,9 @@ describe Boardtdd do
         @b.isFull?.should == true
 
     end
+    
+    it "should place a move" do
+        @b.placeMove(4, :x);
+        @b.b[4].should == :x
+    end
 end
