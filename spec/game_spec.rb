@@ -75,7 +75,6 @@ describe Gametdd do
 
         $stdin = @myio_in
   
-      
     end
 
     it "should congratulate CPU on win" do
@@ -91,8 +90,7 @@ describe Gametdd do
         @myio_in.string = "n\n"
 
         $stdin = @myio_in
-  
-        
+   
     end
 
 end
