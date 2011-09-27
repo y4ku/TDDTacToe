@@ -6,7 +6,7 @@ load 'aitdd.rb'
 class Gametdd
 
     attr_reader :player, :ai
-    attr_accessor :turn
+    attr_accessor :turn, :rules
 
     def initialize
         @rules = Rulestdd.new(Boardtdd.new)
@@ -78,8 +78,7 @@ class Gametdd
     def reset
 
         if askyesno("play again") == "y" then 
-            @rules = Rulestdd.new(Boardtdd.new)
-            @ai = Aitdd.new(@rules)
+            game_reset          
             start
         else 
             puts "GoodBye!"
@@ -90,6 +89,10 @@ class Gametdd
     def draw
         puts "Game is a Draw!"
         @rules.board.boardPrint
+    end
+    
+    def game_reset
+        initialize
     end
 
 end 

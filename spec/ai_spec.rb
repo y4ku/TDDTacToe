@@ -50,4 +50,16 @@ describe Aitdd do
             
         @ai.getMove.should == 0
     end
+
+    it "should detect win condition if 2 in a row" do
+        for i in 0..2 
+            @ai.rules.board.b[i] = :o
+            @ai.rules.board.b[i+3] = :o
+            @ai.nextMoveWin.should == i+6
+            @ai.rules.board.b[i] = "-"
+            @ai.rules.board.b[i+3] = "-"
+            @ai.rules.board.b[i+6] = "-"
+        end  
+    end
+
 end

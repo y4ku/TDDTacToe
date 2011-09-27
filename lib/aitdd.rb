@@ -11,43 +11,43 @@ end
 def nextMoveWin(player = @marker)
     for i in 0..2
         check = i*3
-        if(player == @rules.board.b[check+1] && player == @rules.board.b[check+2]) then               
-            if @rules.isValidMove?(check) then return @bmove = check end
+        if(checkFTW(check + 1, check + 2)) then               
+            if checkValid(check) != false then return @bmove end
         end
-        if(player == @rules.board.b[check] && player == @rules.board.b[check+2]) then
-            if @rules.isValidMove?(check+1) then return @bmove = check+1 end
+        if(checkFTW(check, check + 2)) then  
+            if checkValid(check+1) != false then return @bmove end
         end
-        if(player == @rules.board.b[check] && player == @rules.board.b[check+1]) then
-            if @rules.isValidMove?(check+2) then return @bmove = check+2 end
+        if(checkFTW(check, check + 1)) then  
+            if checkValid(check+2) != false then return @bmove end
         end
-        if(player == @rules.board.b[i+3] && player == @rules.board.b[i+6]) then
-            if @rules.isValidMove?(i) then return @bmove = i end
+        if(checkFTW(i + 3, i + 6)) then  
+            if checkValid(i) != false  then return @bmove end
         end
-        if(player == @rules.board.b[i] && player == @rules.board.b[i+6]) then
-            if @rules.isValidMove?(i+3) then return @bmove = i+3 end
+        if(checkFTW(i, i + 6)) then  
+            if checkValid(i+3) != false  then return @bmove end
         end
-        if(player == @rules.board.b[i] && player == @rules.board.b[i+3]) then
-            if @rules.isValidMove?(i+6) then return @bmove = i+6 end
+        if(checkFTW(i, i + 3)) then  
+            if checkValid(i+6) != false  then return @bmove end
         end
     end
     
-    if(player == @rules.board.b[4] &&  player == @rules.board.b[8]) then
-        if @rules.isValidMove?(0) then return @bmove = 0 end
+    if(checkFTW(4, 8)) then  
+        if checkValid(0) != false  then return @bmove end
     end
-    if(player == @rules.board.b[0] &&  player == @rules.board.b[8]) then
-        if @rules.isValidMove?(4) then return @bmove = 4 end
+    if(checkFTW(0, 8)) then  
+        if checkValid(4) != false  then return @bmove end
     end
-    if(player == @rules.board.b[0] &&  player == @rules.board.b[4]) then
-        if @rules.isValidMove?(8) then return @bmove = 8 end
+    if(checkFTW(0, 4)) then  
+        if checkValid(8) != false  then return @bmove end
     end
-    if(player == @rules.board.b[4] && player == @rules.board.b[6]) then
-        if @rules.isValidMove?(2) then return @bmove = 2 end
+    if(checkFTW(4, 6)) then  
+        if checkValid(2) != false  then return @bmove end
     end
-    if(player == @rules.board.b[2] && player == @rules.board.b[6]) then
-        if @rules.isValidMove?(4) then return @bmove = 4 end
+    if(checkFTW(2, 6)) then  
+        if checkValid(4) != false  then return @bmove end
     end
-    if(player == @rules.board.b[2] && player == @rules.board.b[4]) then
-       if @rules.isValidMove?(6) then return @bmove = 6 end
+    if(checkFTW(2, 4)) then  
+       if checkValid(6) != false  then return @bmove end
     end
     return nil
 end
@@ -78,6 +78,22 @@ end
 		end		
 		return best	
 	end
+
+    def checkFTW(player = @marker, first, second)
+        if player == @rules.board.b[first] && player == @rules.board.b[second] then
+            return true
+        else
+            return false
+        end
+    end    
+
+    def checkValid(move)
+        if @rules.isValidMove?(move) then 
+            return @bmove = move
+        else
+            return false
+        end         
+    end
 
 	def getMove
         if nextMoveWin != nil

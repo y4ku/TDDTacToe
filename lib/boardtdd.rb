@@ -29,12 +29,12 @@ class Boardtdd
 
     def isFull?
         for i in 0..8
-            if @b[i] != "-"
-                return true;
+            if @b[i] == "-"
+                return false;
             end
         end
-        return false;
-    end
+        return true;
+    end        
     
     def placeMove(move, player)
         @b[move] = player

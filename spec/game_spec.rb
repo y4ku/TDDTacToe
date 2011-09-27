@@ -25,7 +25,6 @@ describe Gametdd do
         $stdin = @myio_in
 
         @g.askyesno("to go first").should == "n"
-
     end
 
     it "should keep asking until proper input found" do 
@@ -41,7 +40,6 @@ describe Gametdd do
         $stdin = @myio_in
 
         @g.askyesno("to go first").should == "n"
-
     end
 
     it "should switch player" do
@@ -57,7 +55,6 @@ describe Gametdd do
         @g.switchPlayer
         
         @g.turn.should == @g.player
-
     end
     
 
@@ -69,12 +66,7 @@ describe Gametdd do
 
         @g.win
 
-        @myio_out.string.should == "Congratulations Human, You Won.\n"
-
-        @myio_in.string = "n\n"
-
-        $stdin = @myio_in
-  
+        @myio_out.string.should == "Congratulations Human, You Won.\n"  
     end
 
     it "should congratulate CPU on win" do
@@ -85,12 +77,23 @@ describe Gametdd do
 
         @g.win
 
-        @myio_out.string.should == "CPU Won, You Lose.\n"  
-        
-        @myio_in.string = "n\n"
+        @myio_out.string.should == "CPU Won, You Lose.\n"         
+    end
 
-        $stdin = @myio_in
-   
+    it "should reset entire game on resetting game and set player turn" do
+
+        for i in 0..8
+            @g.rules.board.b[i] = :x
+        end
+
+        @g.rules.isFull?.should == true
+
+        @g.game_reset
+
+        @g.rules.isFull?.should == false
+
+        @g.turn.should == @g.player
+        
     end
 
 end
