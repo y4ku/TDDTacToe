@@ -1,7 +1,6 @@
 #game_spec.rb
 require 'rspec'
 require 'gametdd'
-require 'rubygems'
 require 'constants'
 require 'stringio'
 
