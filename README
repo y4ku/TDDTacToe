@@ -1,0 +1,9 @@
+To Play Tic Tac Toe in Command Line:
+
+Inside of the lib folder there is a run.rb script.
+
+Typing,
+
+'ruby run.rb'
+
+begins the game.
